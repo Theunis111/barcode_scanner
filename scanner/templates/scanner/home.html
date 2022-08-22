@@ -1,0 +1,37 @@
+{% extends 'base2.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container  py-4">
+
+<!-- <img src="{% static 'photo.jpg' %}" alt="not found"> -->
+<h1>Shelves</h1>
+<a id = "adds" class  = 'btn btn-warning'href="{% url 'scanner:shelf' %}">Add Shelves</a>
+<hr>
+<div class="row">
+
+
+{% for shelf in shelf_list %}
+    <!-- <a href="">{{shelf}}</a><br> -->
+    <div class="col py-2">
+
+
+    <div style = 'background-color:grey;' class="card">
+  <div class="card-header">
+    <b>{{shelf}}</b>
+  </div>
+  <div class="card-body">
+    <a href="{{shelf.get_absolute_url}}" class="btn btn-primary">Load Barcodes</a>
+  </div>
+</div>
+</div>
+  {%empty%}
+  <h3>Please add shelves to start scanning</h3>
+  <!-- <a class = 'btn btn-primary' href="{% url 'scanner:shelf' %}">Add Shelves</a> -->
+
+{%endfor%}
+</div>
+
+
+{%endblock%}
+</div>

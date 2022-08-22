@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Barcode Scanner</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+  </head>
+  <style media="screen">
+    h1,h2,h3{
+      text-align: center;
+    }
+    #adds{
+      text-align: center;
+    }
+  </style>
+  <body>
+
+    <div class="container py-4">
+      <h1>Barcode Scanner</h1>
+      <div class="row">
+      <div class="col-4">
+        <a class = 'btn btn-success' href="/admin">Admin</a>
+      </div>
+      <div class="col-4">
+        <a class = 'btn btn-success' href="{% url  'scanner:upload' %}">Add Without shelves</a>
+      </div>
+      <div class="col-4">
+        <a class = 'btn btn-success' href="{% url  'scanner:home' %}">Home</a>
+      </div>
+      </div>
+    </div>
+    <div class="container py-4">
+      {% for message in messages %}
+      <div class="container-fluid pt-4 message">
+        <div id = 'alert-custom' class="alert {{ message.tags }} alert-dismissible text-center" role="alert" >
+          <h2>{{ message }}</h2>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% block content %}
+
+
+      {%endblock%}

@@ -1,0 +1,335 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="theme-color" content="#000000">
+    <title>Barcode Scanner</title>
+    <meta name="description" content="VZS App">
+    <meta name="keywords" content="bootstrap 5, mobile template, cordova, phonegap, mobile, html" />
+    <link rel="icon" type="image/png" href="{% static 'images/footer.jpg' %}" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/footer.jpg' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css'%}">
+    <!-- <link rel="manifest" href="{% static '__manifest.json' %}"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/cd8fa97d3d.js"></script>
+    <script src="https://kit.fontawesome.com/dd1562bc29.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://kit.fontawesome.com/dd1562bc29.js" crossorigin="anonymous"></script>
+    <!-- <script src="{% static 'js/main.js' %}"></script> -->
+
+
+  </head>
+  <body>
+    <!-- loader -->
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- * loader -->
+    <!-- Action sheet -->
+    <div class="modal fade action-sheet" id="actionSheetContent" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">How to use:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="action-sheet-content">
+                          <div id = 'action-row' class="row py-4">
+
+                          </div>
+                            <a href="#" class="btn btn-primary btn-block" data-bs-dismiss="modal">Enjoy!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Action sheet -->
+    <!-- App Header -->
+    <div class="appHeader bg-primary scrolled">
+        <div class="left">
+            <a href="#" class="headerButton" data-bs-toggle="modal" data-bs-target="#sidebarPanel">
+                <ion-icon name="menu-outline"></ion-icon>
+            </a>
+        </div>
+        <div class="center" >
+
+        <a class="b-logo" href="{% url 'scanner:home' %}"><img class = "b-logo" src="{% static 'logo2.jpg' %}" alt="logo"></a>
+        <h3>Barcode Scanner</h3>
+        </div>
+        <div class="pageTitle">
+            <!-- Discover -->
+
+        </div>
+        <div class="right">
+            <a href="#" class="headerButton toggle-searchbox">
+
+                <!-- <ion-icon name="search-outline"></ion-icon> -->
+            </a>
+        </div>
+    </div>
+    <!-- * App Header -->
+    <!-- Search Component -->
+    <!-- <div id="search" class="appHeader">
+        <form method = 'GET' action = "" class="search-form">
+            <div class="form-group searchbox">
+                <input name = 'q' value = '' type="text" class="form-control" placeholder="Search...">
+                <i class="input-icon">
+                    <ion-icon name="search-outline"></ion-icon>
+                </i>
+                <a href="#" class="ms-1 close toggle-searchbox">
+                    <ion-icon name="close-circle"></ion-icon>
+                </a>
+            </div>
+        </form>
+    </div> -->
+    <!-- * Search Component -->
+
+
+    <div class="section full mt-2">
+               <div class="appBottomMenu bg-warning">
+                   <a href="{% url 'scanner:home' %}" class="item">
+                       <div class="col">
+                           <ion-icon name="home-outline"></ion-icon>
+                           <strong>Home</strong>
+                       </div>
+                   </a>
+                   <a href="{% url  'scanner:upload' %}" class="item">
+                       <div class="col">
+                           <ion-icon name="document-text-outline"></ion-icon>
+                           <strong>Add without shelves</strong>
+                       </div>
+                   </a>
+                   <a data-bs-toggle="modal"
+                        data-bs-target="#actionSheetContent" href="" class="item">
+                       <div class="col">
+                           <div class="action-button large">
+                               <ion-icon name="information-circle"></ion-icon>
+                           </div>
+                       </div>
+                   </a>
+                   <a href="/admin" class="item">
+                       <div class="col">
+                           <ion-icon name="paper-plane"></ion-icon>
+                           <strong>Admin</strong>
+                       </div>
+                   </a>
+                   <a href="" class="item">
+                       <div class="col">
+                           <ion-icon name="people-outline"></ion-icon>
+                           <strong>Profile</strong>
+                       </div>
+                   </a>
+               </div>
+
+<!-- App Sidebar -->
+<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+
+                <!-- profile box -->
+                <div class="profileBox">
+                    <div class="image-wrapper">
+                        <!-- <img src="" alt="image" class="imaged rounded"> -->
+                        <h3 id = "menu">Menu</h3>
+                    </div>
+                    <div class="in">
+                      {% if user.is_authenticated %}
+                        <!-- <strong>{{user.first_name}} {{user.last_name}}</strong> -->
+                        <strong>Logged in as: {{user.username}}</strong>
+                      {%endif%}
+                    </div>
+                    <a href="#" class="close-sidebar-button" data-bs-dismiss="modal">
+                        <ion-icon name="close"></ion-icon>
+                    </a>
+                </div>
+                <!-- * profile box -->
+
+                <ul class="listview flush transparent no-line image-listview mt-2">
+                    <li>
+                        <a href="{% url  'scanner:upload' %}" class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="document-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Scan Without shelves
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin" class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="document-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Admin
+                            </div>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="" class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="document-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                POPIA
+                            </div>
+                        </a>
+                    </li>
+                    {% if user.is_superuser or user.is_staff %}
+                    <li>
+                        <a href="" class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="document-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Kliënte
+                            </div>
+                        </a>
+                    </li>
+                    {%endif%}
+                    {% if user.is_superuser %}
+                    <li>
+                        <a href="/admin" class="item">
+                            <div class="icon-box bg-primary">
+                                <ion-icon name="lock-closed-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                <div>Admin</div>
+                                <span class="badge badge-danger"></span>
+                            </div>
+                        </a>
+                    </li>
+                    {%endif%} -->
+                </ul>
+
+                <div class="listview-title mt-2 mb-1">
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- sidebar buttons -->
+            <div class="sidebar-buttons">
+              {% if user.is_authenticated %}
+                <a href="" class="button">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+              {%else%}
+              <a href="" class="button">
+                  <ion-icon name="log-in-outline"></ion-icon>
+                  <div class="in">
+                      <div>Login</div>
+                  </div>
+              </a>
+              {%endif%}
+                <!-- <a href="#" class="button">
+                    <ion-icon name="archive-outline"></ion-icon>
+                </a> -->
+                <!-- <a href="#" class="button">
+                    <ion-icon name="settings-outline"></ion-icon>
+                </a> -->
+                {% if user.is_authenticated%}
+                <a href="" class="button">
+                    <ion-icon name="log-out-outline"></ion-icon>
+                </a>
+                {%endif%}
+            </div>
+            <!-- * sidebar buttons -->
+        </div>
+    </div>
+</div>
+<!-- * App Sidebar -->
+
+  </body>
+<br>
+<br>
+
+<div class="py-4">
+  <div id = 'message' class="container pt-4">
+  {% if messages %}
+    <div class="alert alert messages">
+      {% for message in messages %}
+        <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}<br>
+      </span>
+        {% endfor %}
+    </div>
+  </div>
+  {%endif%}
+</div>
+{%block content %}
+{%endblock%}
+<div class="py-4 clear-top">
+
+</div>
+<!-- app footer -->
+<div class="appFooter">
+    <img src="{% static 'KRUOFT.png'  %}" alt="icon" class="footer-logo mb-2">
+    <div class="footer-title">
+        Copyright © KRUOFT <span class="yearNow"></span>. All Rights Reserved.
+    </div>
+    <!-- <div>Mobilekit is PWA ready Mobile UI Kit Template.</div>
+    Great way to start your mobile websites and pwa projects. -->
+
+    <div class="mt-2">
+        <a href="#" class="btn btn-icon btn-sm btn-facebook">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a href="#" class="btn btn-icon btn-sm btn-twitter">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a href="#" class="btn btn-icon btn-sm btn-linkedin">
+            <ion-icon name="logo-linkedin"></ion-icon>
+        </a>
+        <a href="#" class="btn btn-icon btn-sm btn-instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+        </a> -->
+        <a href="" class="btn btn-icon btn-sm btn-whatsapp">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+        </a>
+        <a href="#" class="btn btn-icon btn-sm btn-secondary goTop">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+        </a>
+    </div>
+    <div style="text-align:center;padding:1em 0;"> <h4><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/en/country/za"><span style="color:gray;"><iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=Africa%2FJohannesburg&show=hour_minute" width="100%" height="90" frameborder="0" seamless></iframe> </div>
+
+<!-- <div style = "padding:35px;" class="">
+
+</div> -->
+</div>
+<!-- * app footer -->
+<!-- ============== Js Files ==============  -->
+<!-- Bootstrap -->
+<script src="{% static 'assets/js/lib/bootstrap.min.js' %}"></script>
+<!-- Ionicons -->
+<script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+<!-- Splide -->
+<script src="{% static 'assets/js/plugins/splide/splide.min.js' %}"></script>
+<!-- ProgressBar js -->
+<script src="{% static 'assets/js/plugins/progressbar-js/progressbar.min.js' %}"></script>
+<!-- Base Js File -->
+<script src="{% static 'assets/js/base.js' %}"></script>
+
+
+<script>
+    // Trigger welcome notification after 5 seconds
+    setTimeout(() => {
+        notification('notification-welcome', 5000);
+    }, 2000);
+</script>
+</html>
