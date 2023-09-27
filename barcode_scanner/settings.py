@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ohfpzklakcks3_p&@d31z^b+!-r-j2!w5u*y@3m11n1p1bqo2(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.3.43','41.79.17.211']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.1.199','41.79.17.211']
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'scanner',
     'django_bootstrap5',
     'import_export',
-    "django_extensions",
+    # "django_extensions",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,39 @@
+{% extends 'base2.html' %}{% load static %} {% block content %}
+
+<body>
+    <h1>Scan Codes</h1>
+    <br/>
+    <div class="container text-center">
+        <div id="qr-reader" style="width: 100%"></div>
+        <br>
+        <div>
+            <form action="">
+                <label for="code">Label</label>
+                <input type="text" id="code" name='code' class="form-control" value="" disabled>
+                <label for="qty">QTY</label>
+                <input type="number" name="qty" class="form-control">
+                <br>
+                <button type="submit" class="btn btn-success">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            var result = decodedText;
+            console.log(result);
+            document.getElementById('code').value = result;
+
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", {
+                fps: 10,
+                qrbox: 250
+            });
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+
+{%endblock%}
