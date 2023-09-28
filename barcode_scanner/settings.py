@@ -18,6 +18,7 @@ TEMPLATES_DIR = BASE_DIR/'templates'
 MEDIA_ROOT = BASE_DIR/'media'
 STATIC_DIR = BASE_DIR/'static'
 MEDIA_URL = '/media/'
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static', 'serviceworker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'scanner',
     'django_bootstrap5',
     'import_export',
+    'pwa',
     # "django_extensions",
 ]
 
@@ -136,3 +138,18 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PWA_APP_NAME = 'Barcode Scanner'
+PWA_APP_DESCRIPTION = "Barcode Scanner"
+PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [ { 'src': '/static/logo192.jpg', 'sizes':'192x192' },{'src': '/static/logo1024.jpg','sizes': '1024x512',},{'src': '/static/logo1080.jpg','sizes': '1080x1080',},{'src': '/static/logo2.png','sizes': 'any',}]
+PWA_APP_ICONS_APPLE = [ { 'src': '/static/logo160.jpg', 'sizes': '160x160' } ]
+PWA_APP_SPLASH_SCREEN = [ { 'src': '/static/logo2.jpg', 'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)' } ]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'

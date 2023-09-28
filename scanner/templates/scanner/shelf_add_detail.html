@@ -1,10 +1,13 @@
 {% extends 'base2.html' %}{% load static %} {% block content %}
+<style>
+
+</style>
 
 <body>
     <h1>Scan Codes for {{shelf}}</h1>
     <br/>
     <div class="container text-center">
-        <div id="qr-reader" style="width: 100%"></div>
+        <div id="qr-reader"></div>
         <br>
         <div>
             <form onsubmit='spinner()' id='post-form' action="{% url 'scanner:scanner' %}" method="POST">{% csrf_token %}
@@ -31,7 +34,7 @@
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", {
                 fps: 10,
-                qrbox: 250
+                qrbox: 125,
             });
         html5QrcodeScanner.render(onScanSuccess);
 
