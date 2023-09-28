@@ -1,15 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
 
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="theme-color" content="#000000">
     <title>Barcode Scanner</title>
     <meta name="description" content="VZS App">
@@ -32,8 +32,9 @@
     <!-- <script src="{% static 'js/main.js' %}"></script> -->
 
 
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- loader -->
     <div id="loader">
         <div class="spinner-border text-primary" role="status"></div>
@@ -41,23 +42,23 @@
     <!-- * loader -->
     <!-- Action sheet -->
     <div class="modal fade action-sheet" id="actionSheetContent" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">How to use:</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="action-sheet-content">
-                          <div id = 'action-row' class="row py-4">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How to use:</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="action-sheet-content">
+                        <div id='action-row' class="row py-4">
 
-                          </div>
-                            <a href="#" class="btn btn-primary btn-block" data-bs-dismiss="modal">Enjoy!</a>
                         </div>
+                        <a href="#" class="btn btn-primary btn-block" data-bs-dismiss="modal">Enjoy!</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Action sheet -->
+    </div>
+    <!-- Action sheet -->
     <!-- App Header -->
     <div class="appHeader bg-primary scrolled">
         <div class="left">
@@ -65,10 +66,10 @@
                 <ion-icon name="menu-outline"></ion-icon>
             </a>
         </div>
-        <div class="center" >
+        <div class="center">
 
-        <a class="b-logo" href="{% url 'scanner:home' %}"><img class = "b-logo" src="{% static 'logo2.jpg' %}" alt="logo"></a>
-        <h3>Barcode Scanner</h3>
+            <a class="b-logo" href="{% url 'scanner:home' %}"><img class="b-logo" src="{% static 'logo2.jpg' %}" alt="logo"></a>
+            <h3>Barcode Scanner</h3>
         </div>
         <div class="pageTitle">
             <!-- Discover -->
@@ -100,87 +101,85 @@
 
 
     <div class="section full mt-2">
-               <div class="appBottomMenu bg-warning">
-                   <a href="{% url 'scanner:home' %}" class="item">
-                       <div class="col">
-                           <ion-icon name="home-outline"></ion-icon>
-                           <strong>Home</strong>
-                       </div>
-                   </a>
-                   <a href="{% url  'scanner:upload' %}" class="item">
-                       <div class="col">
-                           <ion-icon name="document-text-outline"></ion-icon>
-                           <strong>Add without shelves</strong>
-                       </div>
-                   </a>
-                   <a data-bs-toggle="modal"
-                        data-bs-target="#actionSheetContent" href="" class="item">
-                       <div class="col">
-                           <div class="action-button large">
-                               <ion-icon name="information-circle"></ion-icon>
-                           </div>
-                       </div>
-                   </a>
-                   <a href="/admin" class="item">
-                       <div class="col">
-                           <ion-icon name="paper-plane"></ion-icon>
-                           <strong>Admin</strong>
-                       </div>
-                   </a>
-                   <a href="" class="item">
-                       <div class="col">
-                           <ion-icon name="people-outline"></ion-icon>
-                           <strong>Profile</strong>
-                       </div>
-                   </a>
-               </div>
-
-<!-- App Sidebar -->
-<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-
-                <!-- profile box -->
-                <div class="profileBox">
-                    <div class="image-wrapper">
-                        <!-- <img src="" alt="image" class="imaged rounded"> -->
-                        <h3 id = "menu">Menu</h3>
-                    </div>
-                    <div class="in">
-                      {% if user.is_authenticated %}
-                        <!-- <strong>{{user.first_name}} {{user.last_name}}</strong> -->
-                        <strong>Logged in as: {{user.username}}</strong>
-                      {%endif%}
-                    </div>
-                    <a href="#" class="close-sidebar-button" data-bs-dismiss="modal">
-                        <ion-icon name="close"></ion-icon>
-                    </a>
+        <div class="appBottomMenu bg-warning">
+            <a href="{% url 'scanner:home' %}" class="item">
+                <div class="col">
+                    <ion-icon name="home-outline"></ion-icon>
+                    <strong>Home</strong>
                 </div>
-                <!-- * profile box -->
+            </a>
+            <a href="{% url  'scanner:upload' %}" class="item">
+                <div class="col">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    <strong>Add without shelves</strong>
+                </div>
+            </a>
+            <a data-bs-toggle="modal" data-bs-target="#actionSheetContent" href="" class="item">
+                <div class="col">
+                    <div class="action-button large">
+                        <ion-icon name="information-circle"></ion-icon>
+                    </div>
+                </div>
+            </a>
+            <a href="/admin" class="item">
+                <div class="col">
+                    <ion-icon name="paper-plane"></ion-icon>
+                    <strong>Admin</strong>
+                </div>
+            </a>
+            <a href="{% url 'scanner:webcam' %}" class="item">
+                <div class="col">
+                    <ion-icon name="people-outline"></ion-icon>
+                    <strong>Cam Scan</strong>
+                </div>
+            </a>
+        </div>
 
-                <ul class="listview flush transparent no-line image-listview mt-2">
-                    <li>
-                        <a href="{% url  'scanner:upload' %}" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="document-outline"></ion-icon>
+        <!-- App Sidebar -->
+        <div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+
+                        <!-- profile box -->
+                        <div class="profileBox">
+                            <div class="image-wrapper">
+                                <!-- <img src="" alt="image" class="imaged rounded"> -->
+                                <h3 id="menu">Menu</h3>
                             </div>
                             <div class="in">
-                                Scan Without shelves
+                                {% if user.is_authenticated %}
+                                <!-- <strong>{{user.first_name}} {{user.last_name}}</strong> -->
+                                <strong>Logged in as: {{user.username}}</strong> {%endif%}
                             </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="document-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                Admin
-                            </div>
-                        </a>
-                    </li>
-                    <!-- <li>
+                            <a href="#" class="close-sidebar-button" data-bs-dismiss="modal">
+                                <ion-icon name="close"></ion-icon>
+                            </a>
+                        </div>
+                        <!-- * profile box -->
+
+                        <ul class="listview flush transparent no-line image-listview mt-2">
+                            <li>
+                                <a href="{% url  'scanner:upload' %}" class="item">
+                                    <div class="icon-box bg-primary">
+                                        <ion-icon name="document-outline"></ion-icon>
+                                    </div>
+                                    <div class="in">
+                                        Scan Without shelves
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin" class="item">
+                                    <div class="icon-box bg-primary">
+                                        <ion-icon name="document-outline"></ion-icon>
+                                    </div>
+                                    <div class="in">
+                                        Admin
+                                    </div>
+                                </a>
+                            </li>
+                            <!-- <li>
                         <a href="" class="item">
                             <div class="icon-box bg-primary">
                                 <ion-icon name="document-outline"></ion-icon>
@@ -215,65 +214,63 @@
                         </a>
                     </li>
                     {%endif%} -->
-                </ul>
+                        </ul>
 
-                <div class="listview-title mt-2 mb-1">
-                    <span></span>
-                </div>
-            </div>
+                        <div class="listview-title mt-2 mb-1">
+                            <span></span>
+                        </div>
+                    </div>
 
-            <!-- sidebar buttons -->
-            <div class="sidebar-buttons">
-              {% if user.is_authenticated %}
-                <a href="" class="button">
-                    <ion-icon name="person-outline"></ion-icon>
-                </a>
-              {%else%}
-              <a href="" class="button">
-                  <ion-icon name="log-in-outline"></ion-icon>
-                  <div class="in">
-                      <div>Login</div>
-                  </div>
-              </a>
-              {%endif%}
-                <!-- <a href="#" class="button">
+                    <!-- sidebar buttons -->
+                    <div class="sidebar-buttons">
+                        {% if user.is_authenticated %}
+                        <a href="" class="button">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </a>
+                        {%else%}
+                        <a href="" class="button">
+                            <ion-icon name="log-in-outline"></ion-icon>
+                            <div class="in">
+                                <div>Login</div>
+                            </div>
+                        </a>
+                        {%endif%}
+                        <!-- <a href="#" class="button">
                     <ion-icon name="archive-outline"></ion-icon>
                 </a> -->
-                <!-- <a href="#" class="button">
+                        <!-- <a href="#" class="button">
                     <ion-icon name="settings-outline"></ion-icon>
                 </a> -->
-                {% if user.is_authenticated%}
-                <a href="" class="button">
-                    <ion-icon name="log-out-outline"></ion-icon>
-                </a>
-                {%endif%}
+                        {% if user.is_authenticated%}
+                        <a href="" class="button">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </a>
+                        {%endif%}
+                    </div>
+                    <!-- * sidebar buttons -->
+                </div>
             </div>
-            <!-- * sidebar buttons -->
         </div>
-    </div>
-</div>
-<!-- * App Sidebar -->
+        <!-- * App Sidebar -->
 
-  </body>
+</body>
 <br>
 <br>
 
 <div class="py-4">
-  <div id = 'message' class="container pt-4">
-  {% if messages %}
-    <div class="alert alert messages">
-      {% for message in messages %}
-        <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-        {{ message }}<br>
-      </span>
-        {% endfor %}
+    <div id='message' class="container pt-4">
+        {% if messages %}
+        <div class="alert alert messages">
+            {% for message in messages %}
+            <span{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %} {{ message }}<br>
+                </span>
+                {% endfor %}
+        </div>
     </div>
-  </div>
-  {%endif%}
+    {%endif%}
 </div>
-{%block content %}
-{%endblock%}
+{%block content %} {%endblock%}
 <div class="py-4 clear-top">
 
 </div>
@@ -306,7 +303,8 @@
             <ion-icon name="arrow-up-outline"></ion-icon>
         </a>
     </div>
-    <div style="text-align:center;padding:1em 0;"> <h4><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/en/country/za"><span style="color:gray;"><iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=Africa%2FJohannesburg&show=hour_minute" width="100%" height="90" frameborder="0" seamless></iframe> </div>
+    <div style="text-align:center;padding:1em 0;">
+        <h4><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/en/country/za"><span style="color:gray;"><iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=Africa%2FJohannesburg&show=hour_minute" width="100%" height="90" frameborder="0" seamless></iframe> </div>
 
 <!-- <div style = "padding:35px;" class="">
 

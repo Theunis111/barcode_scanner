@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
+import json
 # Create your views here.
 
 class AddShelf(CreateView):
@@ -255,3 +256,24 @@ def gen(camera):
 
 def webcam(request):
     return render(request,'scanner/webcam.html',{})
+
+def webcam_form(request):
+    if request.POST:
+        code = request.POST.get('code')
+        qty = request.POST.get('qty')
+        shelf = request.POST.get('shelf')
+            
+        response_data = {}
+        try:
+            if shelf:
+                Scan.objects.create(code=code,qty=qty,shelf=shelf)
+            else:
+                Scan.objects.create(code=code,qty=qty)
+            response_data['result'] = 'Create post successful!'
+        except Exception as e:
+             messages.add_message(request, messages.ERROR, e)
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    

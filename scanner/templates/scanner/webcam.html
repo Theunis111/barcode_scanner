@@ -7,13 +7,13 @@
         <div id="qr-reader" style="width: 100%"></div>
         <br>
         <div>
-            <form action="">
-                <label for="code">Label</label>
-                <input type="text" id="code" name='code' class="form-control" value="" disabled>
+            <form onsubmit='spinner()' id='post-form' action="{% url 'scanner:scanner' %}" method="POST">{% csrf_token %}
+                <label for="code">Auto Scan or Input Label</label>
+                <input type="text" id="code" name='code' class="form-control" value="" required>
                 <label for="qty">QTY</label>
-                <input type="number" name="qty" class="form-control">
+                <input type="number" id='qty' name="qty" class="form-control">
                 <br>
-                <button type="submit" class="btn btn-success">Add</button>
+                <button id='btn' type="submit" class="btn btn-success">Add</button>
             </form>
         </div>
     </div>
@@ -33,6 +33,47 @@
                 qrbox: 250
             });
         html5QrcodeScanner.render(onScanSuccess);
+
+        $('#post-form').on('submit', function(event) {
+            event.preventDefault();
+            console.log("form submitted!") // sanity check
+            create_post()
+        });
+        // AJAX for posting
+        function create_post() {
+            console.log("create post is working!") // sanity check
+            $.ajax({
+                url: "/scanner/", // the endpoint
+                type: "POST", // http method
+                data: {
+                    code: $('#code').val(),
+                    qty: $('#qty').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                }, // data sent with the post request
+
+                // handle a successful response
+                success: function() {
+                    //console.log(code);
+                    //console.log(qty);
+                    console.log("success");
+                    alert("Successfully added!"); // another sanity check
+                },
+                error: function(e) {
+                    //console.log(code);
+                    //console.log(qty);
+                    console.log("error");
+                    console.log(e); // another sanity check
+                    alert("An Error occured, please make sure all details are correct");
+                    // another sanity check
+                },
+
+
+            });
+        };
+
+        function spinner() {
+            document.getElementById("").innerHTML = "<i class='fa fa-spin fa-spinner'></i> Loading...";
+        }
     </script>
 </body>
 

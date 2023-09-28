@@ -1,0 +1,110 @@
+{% extends 'base2.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% block content %}
+<style media="screen">
+  button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+</style>
+<h3>Add {{shelf}} barcodes</h3>
+    <div class="container py-4">
+      <!-- <div id="qr-reader" style="width: 100%"></div> -->
+    </div>
+
+
+<div class="container">
+
+
+<form id = "myForm" class="shelf-form2" enctype = 'multipart/form-data' method="POST">{% csrf_token %}
+  <input type="hidden" name="shelf" value="{{shelf}}">
+  {% bootstrap_form form %}
+
+  <button class ="btn btn-primary" type="submit" name="button">Load</button>
+</form>
+</div>
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+<script type="text/javascript">
+var audio = new Audio("{% static 'audio/scan.wav' %}");
+
+function onScanSuccess(decodedText, decodedResult) {
+  audio.play();
+  console.log('Code scanned = ${decodedText}', decodedResult);
+  var code = ('Code scanned = ${decodedText}', decodedResult);
+  document.getElementById("id_barcode_manually").value = decodedText;
+
+}
+var html5QrcodeScanner = new Html5QrcodeScanner(
+  "qr-reader", { fps: 30, qrbox: 250 });
+html5QrcodeScanner.render(onScanSuccess);
+
+$(document).ready(function(){
+  var productForm = $(".shelf-form")
+
+  productForm.submit(function(event){
+    event.preventDefault();
+    var thisForm = $(this)
+    var actionEndpoint = thisForm.attr('action');
+    var httpMethod = thisForm.attr('method');
+    var formData =  thisForm.serialize();
+
+    $.ajax({
+      url: actionEndpoint,
+      method:httpMethod,
+      data:formData,
+      success: function(data){
+        console.log("success")
+        document.getElementById("myForm").reset()
+        $.confirm({
+          title: 'Scan Successful',
+          content: '',
+          type: 'green',
+          typeAnimated: true,
+          buttons: {
+              tryAgain: {
+                  text: 'Continue',
+                  btnClass: 'btn-green',
+                  action: function(){
+                  }
+              },
+          }
+      });
+
+      },
+      error: function(errorData){
+        console.log("Error",errorData)
+        $.confirm({
+          title: 'Encountered an error!',
+          content: 'Something went downhill, this may be serious',
+          type: 'red',
+          typeAnimated: true,
+          buttons: {
+              tryAgain: {
+                  text: 'Try again',
+                  btnClass: 'btn-red',
+                  action: function(){
+                  }
+              },
+              close: function () {
+              }
+          }
+      });
+
+      }
+
+    })
+
+
+
+  })
+
+})
+</script>
+{%endblock%}

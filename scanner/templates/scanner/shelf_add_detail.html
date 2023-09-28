@@ -1,110 +1,83 @@
-{% extends 'base2.html' %}
-{% load django_bootstrap5 %}
-{% load static %}
-{% block content %}
-<style media="screen">
-  button{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-  }
-</style>
-<h3>Add {{shelf}} barcodes</h3>
-    <div class="container py-4">
-      <!-- <div id="qr-reader" style="width: 100%"></div> -->
+{% extends 'base2.html' %}{% load static %} {% block content %}
+
+<body>
+    <h1>Scan Codes for {{shelf}}</h1>
+    <br/>
+    <div class="container text-center">
+        <div id="qr-reader" style="width: 100%"></div>
+        <br>
+        <div>
+            <form onsubmit='spinner()' id='post-form' action="{% url 'scanner:scanner' %}" method="POST">{% csrf_token %}
+                <input type="hidden" id='shelf' name='shelf' value="{{shelf}}">
+                <label for="code">Auto Scan or Input Label</label>
+                <input type="text" id="code" name='code' class="form-control" value="" required>
+                <label for="qty">QTY</label>
+                <input type="number" id='qty' name="qty" class="form-control">
+                <br>
+                <button id='btn' type="submit" class="btn btn-success">Add</button>
+            </form>
+        </div>
     </div>
 
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            var result = decodedText;
+            console.log(result);
+            document.getElementById('code').value = result;
 
-<div class="container">
+        }
 
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", {
+                fps: 10,
+                qrbox: 250
+            });
+        html5QrcodeScanner.render(onScanSuccess);
 
-<form id = "myForm" class="shelf-form2" enctype = 'multipart/form-data' method="POST">{% csrf_token %}
-  <input type="hidden" name="shelf" value="{{shelf}}">
-  {% bootstrap_form form %}
+        $('#post-form').on('submit', function(event) {
+            event.preventDefault();
+            console.log("form submitted!") // sanity check
+            create_post()
+        });
+        // AJAX for posting
+        function create_post() {
+            console.log("create post is working!") // sanity check
+            $.ajax({
+                url: "/scanner/", // the endpoint
+                type: "POST", // http method
+                data: {
+                    code: $('#code').val(),
+                    qty: $('#qty').val(),
+                    shelf: $('#shelf').val(),
 
-  <button class ="btn btn-primary" type="submit" name="button">Load</button>
-</form>
-</div>
-<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
-<script type="text/javascript">
-var audio = new Audio("{% static 'audio/scan.wav' %}");
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                }, // data sent with the post request
 
-function onScanSuccess(decodedText, decodedResult) {
-  audio.play();
-  console.log('Code scanned = ${decodedText}', decodedResult);
-  var code = ('Code scanned = ${decodedText}', decodedResult);
-  document.getElementById("id_barcode_manually").value = decodedText;
-
-}
-var html5QrcodeScanner = new Html5QrcodeScanner(
-  "qr-reader", { fps: 30, qrbox: 250 });
-html5QrcodeScanner.render(onScanSuccess);
-
-$(document).ready(function(){
-  var productForm = $(".shelf-form")
-
-  productForm.submit(function(event){
-    event.preventDefault();
-    var thisForm = $(this)
-    var actionEndpoint = thisForm.attr('action');
-    var httpMethod = thisForm.attr('method');
-    var formData =  thisForm.serialize();
-
-    $.ajax({
-      url: actionEndpoint,
-      method:httpMethod,
-      data:formData,
-      success: function(data){
-        console.log("success")
-        document.getElementById("myForm").reset()
-        $.confirm({
-          title: 'Scan Successful',
-          content: '',
-          type: 'green',
-          typeAnimated: true,
-          buttons: {
-              tryAgain: {
-                  text: 'Continue',
-                  btnClass: 'btn-green',
-                  action: function(){
-                  }
-              },
-          }
-      });
-
-      },
-      error: function(errorData){
-        console.log("Error",errorData)
-        $.confirm({
-          title: 'Encountered an error!',
-          content: 'Something went downhill, this may be serious',
-          type: 'red',
-          typeAnimated: true,
-          buttons: {
-              tryAgain: {
-                  text: 'Try again',
-                  btnClass: 'btn-red',
-                  action: function(){
-                  }
-              },
-              close: function () {
-              }
-          }
-      });
-
-      }
-
-    })
+                // handle a successful response
+                success: function() {
+                    //console.log(code);
+                    //console.log(qty);
+                    console.log("success");
+                    alert("Successfully added!"); // another sanity check
+                },
+                error: function(e) {
+                    //console.log(code);
+                    //console.log(qty);
+                    console.log("error");
+                    console.log(e); // another sanity check
+                    alert("An Error occured, please make sure all details are correct");
+                    // another sanity check
+                },
 
 
+            });
+        };
 
-  })
+        function spinner() {
+            document.getElementById("").innerHTML = "<i class='fa fa-spin fa-spinner'></i> Loading...";
+        }
+    </script>
+</body>
 
-})
-</script>
 {%endblock%}
